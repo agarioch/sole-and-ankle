@@ -31,6 +31,11 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+  const variantText = {
+    'on-sale': 'Sale',
+    'new-release': 'Just Released!' 
+  }
+
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
@@ -45,6 +50,7 @@ const ShoeCard = ({
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
         </Row>
+        {variant !== 'default' && <Variant variant={variant}>{variantText[variant]}</Variant>}
       </Wrapper>
     </Link>
   );
@@ -58,6 +64,7 @@ const Link = styled.a`
 const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
+  position: relative;
   width: 370px;
 `;
 
@@ -95,5 +102,16 @@ const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
 `;
+
+const Variant = styled.span`
+  background-color: ${p => p.variant === 'on-sale' ? COLORS.primary : COLORS.secondary};
+  border-radius: 2px;
+  color: white;
+  font-weight: 700;
+  padding: 6px 9px;
+  position: absolute;
+  right: -1%;
+  top: 5%;
+`
 
 export default ShoeCard;
